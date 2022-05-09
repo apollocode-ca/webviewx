@@ -360,13 +360,12 @@ class _WebViewXState extends State<WebViewX> {
       iframeElement.sandbox!.add('allow-scripts');
     }
 
-    List<String> allow = widget.webSpecificParams.additionalAllowOptions;
+    List<String> allow = [];
 
-    if (widget.initialMediaPlaybackPolicy ==
-        AutoMediaPlaybackPolicy.alwaysAllow) {
-      allow.add('autoplay');
+    for (int i = 0; i < widget.webSpecificParams.webAllowContent.length; i++) {
+      allow.add(widget.webSpecificParams.webAllowContent[i]);
     }
-
+    allow.add('autoplay');
     iframeElement.allow = allow.reduce((curr, next) => '$curr; $next');
 
     return iframeElement;
